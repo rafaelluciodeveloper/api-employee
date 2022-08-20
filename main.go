@@ -5,7 +5,6 @@ import (
 	"github.com/go-chi/chi/v5"
 	"go-api/configs"
 	"go-api/handlers"
-	"log"
 	"net/http"
 	"os"
 )
@@ -23,11 +22,5 @@ func main() {
 	r.Get("/", handlers.List)
 	r.Get("/{id}", handlers.Get)
 
-	port := os.Getenv("PORT")
-
-	if port == "" {
-		log.Fatal("$PORT must be set")
-	}
-
-	http.ListenAndServe(fmt.Sprintf(":%s", port), r)
+	http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("PORT")), r)
 }

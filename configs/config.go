@@ -1,16 +1,13 @@
 package configs
 
-import "github.com/spf13/viper"
+import (
+	"os"
+)
 
 var cfg *config
 
 type config struct {
-	API APIConfig
-	DB  DBConfig
-}
-
-type APIConfig struct {
-	Port string
+	DB DBConfig
 }
 
 type DBConfig struct {
@@ -21,34 +18,15 @@ type DBConfig struct {
 	Database string
 }
 
-func init() {
-	viper.SetDefault("api.port", "9000")
-	viper.SetDefault("database.host", "localhost")
-	viper.SetDefault("database.port", "5432")
-}
-
 func Load() error {
-	viper.SetConfigName("config")
-	viper.SetConfigType("toml")
-	viper.AddConfigPath(".")
-	err := viper.ReadInConfig()
-	if err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
-			return err
-		}
-	}
 	cfg = new(config)
 
-	cfg.API = APIConfig{
-		Port: viper.GetString("api.port"),
-	}
-
 	cfg.DB = DBConfig{
-		Host:     viper.GetString("database.host"),
-		Port:     viper.GetString("database.port"),
-		User:     viper.GetString("database.user"),
-		Password: viper.GetString("database.password"),
-		Database: viper.GetString("database.database"),
+		Host:     os.Getenv("HOST_DB"),
+		Port:     os.Getenv("PORT_DB"),
+		User:     os.Getenv("USER_DB"),
+		Password: os.Getenv("PASSWORD_DB"),
+		Database: os.Getenv("DATABASE_DB"),
 	}
 
 	return nil
@@ -56,8 +34,4 @@ func Load() error {
 
 func GetDB() DBConfig {
 	return cfg.DB
-}
-
-func GetServerPort() string {
-	return cfg.API.Port
 }
