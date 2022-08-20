@@ -16,11 +16,14 @@ func main() {
 	}
 
 	r := chi.NewRouter()
-	r.Post("/", handlers.Create)
-	r.Put("/{id}", handlers.Update)
-	r.Delete("/{id}", handlers.Update)
-	r.Get("/", handlers.List)
-	r.Get("/{id}", handlers.Get)
+	r.Route("/employee", func(r chi.Router) {
+		r.Post("/", handlers.Create)
+		r.Put("/{id}", handlers.Update)
+		r.Delete("/{id}", handlers.Update)
+		r.Get("/", handlers.List)
+		r.Get("/{id}", handlers.Get)
+	})
 
 	http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("PORT")), r)
+
 }

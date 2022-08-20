@@ -3,7 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"github.com/go-chi/chi/v5"
-	"go-api/models"
+	"go-api/models/actions"
 	"log"
 	"net/http"
 	"strconv"
@@ -12,15 +12,15 @@ import (
 func Get(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
-		log.Printf("Erro ao fazer parse do id: %v", err)
+		log.Printf("Error parsing id: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
-	employee, err := models.Get(int64(id))
+	employee, err := actions.Get(int64(id))
 
 	if err != nil {
-		log.Printf("Erro ao buscar registro: %v", err)
+		log.Printf("Error fetching record: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}

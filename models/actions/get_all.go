@@ -1,8 +1,11 @@
-package models
+package actions
 
-import "go-api/db"
+import (
+	"go-api/db"
+	"go-api/models"
+)
 
-func GetAll() (employees []Employee, err error) {
+func GetAll() (employees []models.Employee, err error) {
 	conn, err := db.OpenConnection()
 
 	if err != nil {
@@ -17,7 +20,7 @@ func GetAll() (employees []Employee, err error) {
 	}
 
 	for rows.Next() {
-		var employee Employee
+		var employee models.Employee
 
 		err = rows.Scan(&employee.ID, &employee.Name, &employee.Occupation, &employee.Salary)
 		if err != nil {

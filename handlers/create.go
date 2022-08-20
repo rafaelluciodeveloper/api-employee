@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"go-api/models"
+	"go-api/models/actions"
 	"log"
 	"net/http"
 )
@@ -16,18 +17,18 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
-	id, err := models.Insert(employe)
-	var resp map[string]string
+	id, err := actions.Insert(employe)
+	var resp models.Response
 
 	if err != nil {
-		resp = map[string]string{
-			"Error":   "true",
-			"Message": fmt.Sprintf("Ocorreu um erro ao tentar inserir %v", err),
+		resp = models.Response{
+			Error:   true,
+			Message: fmt.Sprintf("An error occurred while trying to enter %v", err),
 		}
 	} else {
-		resp = map[string]string{
-			"Error":   "false",
-			"Message": fmt.Sprintf("Funcionario inserido com sucesso! ID: %v", id),
+		resp = models.Response{
+			Error:   false,
+			Message: fmt.Sprintf("Record inserted successfully ID: %v", id),
 		}
 	}
 

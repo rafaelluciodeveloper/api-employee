@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/go-chi/chi/v5"
 	"go-api/models"
+	"go-api/models/actions"
 	"log"
 	"net/http"
 	"strconv"
@@ -12,26 +13,26 @@ import (
 func Delete(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
-		log.Printf("Erro ao fazer parse do id: %v", err)
+		log.Printf("Error parsing id: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
-	rows, err := models.Delete(int64(id))
+	rows, err := actions.Delete(int64(id))
 
 	if err != nil {
-		log.Printf("Erro ao exluir registro: %v", err)
+		log.Printf("Error deleting record: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
 	if rows > 1 {
-		log.Printf("Erro: foram removidos %d registros", rows)
+		log.Printf("Error: %d records were removed", rows)
 	}
 
-	resp := map[string]string{
-		"Error":   "false",
-		"Message": "Regisotro Excluido com sucesso!",
+	resp := models.Response{
+		Error:   false,
+		Message: "Successfully deleted record!",
 	}
 
 	w.Header().Add("Content-Type", "application/json")

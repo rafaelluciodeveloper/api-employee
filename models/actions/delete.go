@@ -1,4 +1,4 @@
-package models
+package actions
 
 import "go-api/db"
 

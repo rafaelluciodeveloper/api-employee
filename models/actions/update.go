@@ -1,8 +1,11 @@
-package models
+package actions
 
-import "go-api/db"
+import (
+	"go-api/db"
+	"go-api/models"
+)
 
-func Update(id int64, employe Employee) (int64, error) {
+func Update(id int64, employe models.Employee) (int64, error) {
 	conn, err := db.OpenConnection()
 	if err != nil {
 		return 0, err
