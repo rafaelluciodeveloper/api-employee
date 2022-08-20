@@ -1,0 +1,9 @@
+[api]
+port = "9000"
+
+[database]
+host = "ec2-107-22-122-106.compute-1.amazonaws.com"
+port = ""
+user ="wxgafndefasqut"
+password = "18baf9d09d701b6e256448d15035aceef7e2e78db5a9548999a511fa8bbeea6b"
+database = "d2kba4rmh02dug"
