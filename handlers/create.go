@@ -17,16 +17,16 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	id, err := models.Insert(employe)
-	var resp map[string]any
+	var resp map[string]string
 
 	if err != nil {
-		resp = map[string]any{
-			"Error":   true,
+		resp = map[string]string{
+			"Error":   "true",
 			"Message": fmt.Sprintf("Ocorreu um erro ao tentar inserir %v", err),
 		}
 	} else {
-		resp = map[string]any{
-			"Error":   false,
+		resp = map[string]string{
+			"Error":   "false",
 			"Message": fmt.Sprintf("Funcionario inserido com sucesso! ID: %v", id),
 		}
 	}

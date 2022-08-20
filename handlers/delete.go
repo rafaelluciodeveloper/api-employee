@@ -29,8 +29,8 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Erro: foram removidos %d registros", rows)
 	}
 
-	resp := map[string]any{
-		"Error":   false,
+	resp := map[string]string{
+		"Error":   "false",
 		"Message": "Regisotro Excluido com sucesso!",
 	}
 
