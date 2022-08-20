@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	_ "github.com/pdrum/swagger-automation/docs" // This line is necessary for go-swagger to find your docs!
 	"go-api/configs"
 	"go-api/route"
 	"net/http"
