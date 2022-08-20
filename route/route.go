@@ -15,8 +15,8 @@ func SetupRoute() *chi.Mux {
 		r.Get("/", handlers.List)
 		r.Get("/{id}", handlers.Get)
 	})
-	
-	r.Get("/swagger/*any", httpSwagger.WrapHandler)
+
+	r.Get("/", httpSwagger.WrapHandler)
 
 	return r
 }
