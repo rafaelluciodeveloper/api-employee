@@ -5,7 +5,7 @@ import (
 	"go-api/models"
 )
 
-func Get(id int64) (employee models.Employee, err error) {
+func Get(id string) (employee models.Employee, err error) {
 	conn, err := db.OpenConnection()
 
 	if err != nil {

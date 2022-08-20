@@ -5,7 +5,7 @@ import (
 	"go-api/models"
 )
 
-func Insert(employee models.Employee) (id int64, err error) {
+func Insert(employee models.Employee) (id string, err error) {
 	conn, err := db.OpenConnection()
 	if err != nil {
 		return

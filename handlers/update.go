@@ -7,26 +7,29 @@ import (
 	"go-api/models/actions"
 	"log"
 	"net/http"
-	"strconv"
 )
 
+// Update ... Update employee
+// @Summary Update employee based on parameters
+// @Description Update employee
+// @Tags Employee
+// @Accept json
+// @Param user body models.Employee true "Employee Data"
+// @Success 200 {object} object
+// @Failure 400,500 {object} object
+// @Router / [put]
 func Update(w http.ResponseWriter, r *http.Request) {
-	id, err := strconv.Atoi(chi.URLParam(r, "id"))
-	if err != nil {
-		log.Printf("Erro ao fazer parse do id: %v", err)
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-		return
-	}
+	id := chi.URLParam(r, "id")
 
 	var employe models.Employee
-	err = json.NewDecoder(r.Body).Decode(&employe)
+	err := json.NewDecoder(r.Body).Decode(&employe)
 	if err != nil {
 		log.Printf("Error decoding json: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
-	rows, err := actions.Update(int64(id), employe)
+	rows, err := actions.Update(id, employe)
 
 	if err != nil {
 		log.Printf("Error updating record: %v", err)

@@ -7,18 +7,20 @@ import (
 	"go-api/models/actions"
 	"log"
 	"net/http"
-	"strconv"
 )
 
+// Delete ... Delete the employee by id
+// @Summary Delete one employee
+// @Description delete employee by ID
+// @Tags Employee
+// @Param id path string true "Employee ID"
+// @Success 200 {object} models.Employee
+// @Failure 400,404 {object} object
+// @Router /{id} [delete]
 func Delete(w http.ResponseWriter, r *http.Request) {
-	id, err := strconv.Atoi(chi.URLParam(r, "id"))
-	if err != nil {
-		log.Printf("Error parsing id: %v", err)
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-		return
-	}
+	id := chi.URLParam(r, "id")
 
-	rows, err := actions.Delete(int64(id))
+	rows, err := actions.Delete(id)
 
 	if err != nil {
 		log.Printf("Error deleting record: %v", err)
